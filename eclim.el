@@ -504,6 +504,8 @@ the use of eclim to java and ant files."
 ;; Request an eclipse source update when files are saved
 (defun eclim--after-save-hook ()
   (when (eclim--accepted-p (buffer-file-name))
+    (setq eclim--project-current-file nil)  ;; in case new filename
+    (eclim-project-update (eclim--project-name))
     (ignore-errors
       (apply 'eclim--call-process
              (case major-mode
